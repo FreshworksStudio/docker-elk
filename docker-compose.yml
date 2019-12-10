@@ -63,7 +63,7 @@ services:
         read_only: true
     ports:
       - "5601:5601"
-      environment:
+    environment:
         ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-changeme}
     networks:
       - elk
