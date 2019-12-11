@@ -16,7 +16,7 @@ Based on the official Docker images from Elastic:
 ### Host setup
 
 By default, the stack exposes the following ports:
-* 5500: Logstash TCP input
+* 8080: Logstash HTTP input
 * 9200: Elasticsearch HTTP
 * 9300: Elasticsearch TCP transport
 * 5601: Kibana
@@ -119,30 +119,6 @@ $ docker-compose restart kibana logstash
 
 > :information_source: Learn more about the security of the Elastic stack at [Tutorial: Getting started with
 > security][sec-tutorial].
-
-### Injecting data
-
-Give Kibana about a minute to initialize, then access the Kibana web UI by hitting
-[http://localhost:5601](http://localhost:5601) with a web browser and use the following default credentials to log in:
-
-* user: *elastic*
-* password: *\<your generated elastic password>*
-
-Now that the stack is running, you can go ahead and inject some log entries. The shipped Logstash configuration allows
-you to send content via TCP:
-
-
-```console
-# Using BSD netcat (Debian, Ubuntu, MacOS system, ...)
-$ cat /path/to/logfile.log | nc -q0 localhost 5500
-```
-
-```console
-# Using GNU netcat (CentOS, Fedora, MacOS Homebrew, ...)
-$ cat /path/to/logfile.log | nc -c localhost 5500
-```
-
-You can also load the sample data provided by your Kibana installation.
 
 ### Default Kibana index pattern creation
 
