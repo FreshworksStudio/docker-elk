@@ -47,6 +47,8 @@ services:
       LS_JAVA_OPTS: "-Xmx1024m -Xms1024m"
       LOGSTASH_PASSWORD: ${LOGSTASH_PASSWORD:-changeme}
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-changeme}
+      LOGSTASH_HTTP_USERNAME: ${LOGSTASH_HTTP_USERNAME:-changeme}
+      LOGSTASH_HTTP_PASSWORD: ${LOGSTASH_HTTP_PASSWORD:-changeme}
     networks:
       - elk
     depends_on:
