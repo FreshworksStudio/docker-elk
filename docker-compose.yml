@@ -99,8 +99,8 @@ services:
           source: letsencrypt-certs
           target: /etc/letsencrypt/live
         - type: bind
-          source: ./nginx/site-confs
-          target: /config/nginx/site-confs
+          source: ./nginx/site-confs/logstash.conf
+          target: /config/nginx/site-confs/logstash.conf
           read_only: true
     networks:
         - elk
