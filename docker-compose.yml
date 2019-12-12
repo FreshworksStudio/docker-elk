@@ -102,6 +102,9 @@ services:
         - type: bind
           source: ./nginx/site-confs/kibana.conf
           target: /config/nginx/site-confs/kibana.conf
+        - type: bind
+          source: ./nginx/nginx.conf
+          target: /config/nginx/nginx.conf
     networks:
         - elk
     ports:
