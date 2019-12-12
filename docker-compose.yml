@@ -98,6 +98,8 @@ services:
         - type: volume
           source: letsencrypt-certs
           target: /etc/letsencrypt/live
+    networks:
+        - elk
     ports:
         - 443:443
         - 80:80
