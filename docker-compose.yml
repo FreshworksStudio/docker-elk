@@ -47,7 +47,6 @@ services:
       - type: volume
         source: letsencrypt-certs
         target: /usr/share/logstash/certs
-        read_only: true
     ports:
       - "8080:8080"
       - "9600:9600"
