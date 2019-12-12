@@ -95,9 +95,6 @@ services:
         - type: volume
           source: letsencrypt-config
           target: /config
-        - type: volume
-          source: letsencrypt-certs
-          target: /etc/letsencrypt/live
         - type: bind
           source: ./nginx/site-confs/logstash.conf
           target: /config/nginx/site-confs/logstash.conf
@@ -116,4 +113,3 @@ networks:
 volumes:
   elasticsearch:
   letsencrypt-config:
-  letsencrypt-certs:
