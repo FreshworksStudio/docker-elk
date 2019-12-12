@@ -90,8 +90,7 @@ services:
         - URL=${DOMAIN_NAME:-freshworks.club}
         - SUBDOMAINS=${SUBDOMAIN_LIST:-th-elk,}
         - ONLY_SUBDOMAINS=true
-        - VALIDATION=dns
-        - DNSPLUGIN=route53
+        - VALIDATION=http
     volumes:
         - /usr/share/letsencrypt/config:/config
     ports:
