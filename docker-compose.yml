@@ -91,6 +91,7 @@ services:
         - SUBDOMAINS=${SUBDOMAIN_LIST:-th-elk,}
         - ONLY_SUBDOMAINS=true
         - VALIDATION=http
+        - STAGING=true
     volumes:
         - type: volume
           source: letsencrypt-config
@@ -98,6 +99,10 @@ services:
         - type: bind
           source: ./nginx/site-confs/logstash.conf
           target: /config/nginx/site-confs/logstash.conf
+          read_only: true
+        - type: bind
+          source: ./nginx/site-confs/kibana.conf
+          target: /config/nginx/site-confs/kibana.conf
           read_only: true
     networks:
         - elk
