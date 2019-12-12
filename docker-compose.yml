@@ -88,7 +88,7 @@ services:
         - PGID=1000
         - TZ=America/Vancouver
         - URL=${DOMAIN_NAME:-freshworks.club}
-        - SUBDOMAINS=${SUBDOMAIN_LIST:-th-elk,}
+        - SUBDOMAINS=${SUBDOMAIN_LIST:-elk.th,}
         - ONLY_SUBDOMAINS=true
         - VALIDATION=http
     volumes:
