@@ -16,9 +16,9 @@ services:
       - type: volume
         source: elasticsearch
         target: /usr/share/elasticsearch/data
-    ports:
-      - "9200:9200"
-      - "9300:9300"
+    expose:
+      - "9200"
+      - "9300"
     environment:
       ES_JAVA_OPTS: "-Xmx1024m -Xms1024m"
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-changeme}
@@ -44,9 +44,9 @@ services:
         source: ./logstash/pipeline
         target: /usr/share/logstash/pipeline
         read_only: true
-    ports:
-      - "8080:8080"
-      - "9600:9600"
+    expose:
+      - "8080"
+      - "9600"
     environment:
       LS_JAVA_OPTS: "-Xmx1024m -Xms1024m"
       LOGSTASH_PASSWORD: ${LOGSTASH_PASSWORD:-changeme}
@@ -70,8 +70,8 @@ services:
         source: ./kibana/config/kibana.yml
         target: /usr/share/kibana/config/kibana.yml
         read_only: true
-    ports:
-      - "5601:5601"
+    expose:
+      - "5601"
     environment:
         KIBANA_PASSWORD: ${KIBANA_PASSWORD:-changeme}
     networks:
@@ -97,18 +97,14 @@ services:
         - type: volume
           source: letsencrypt-config
           target: /config
-        - type: bind
-          source: ./nginx/site-confs/logstash.conf
-          target: /config/nginx/site-confs/logstash.conf
-        - type: bind
-          source: ./nginx/site-confs/kibana.conf
-          target: /config/nginx/site-confs/kibana.conf
     networks:
         - elk
     ports:
         - 443:443
         - 80:80
-        - 5602:5602
+        - 5601:5601
+        - 9200:9200
+        - 8080:8080
 
 networks:
   elk:
