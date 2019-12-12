@@ -81,8 +81,7 @@ services:
 
   letsencrypt:
     restart: unless-stopped
-    build:
-        context: nginx/
+    image: linuxserver/letsencrypt
     container_name: letsencrypt
     environment:
         - PUID=1000
@@ -97,6 +96,12 @@ services:
         - type: volume
           source: letsencrypt-config
           target: /config
+        - type: bind
+          source: ./nginx/site-confs/logstash.conf
+          target: /config/nginx/site-confs/logstash.conf
+        - type: bind
+          source: ./nginx/site-confs/kibana.conf
+          target: /config/nginx/site-confs/kibana.conf
     networks:
         - elk
     ports:
