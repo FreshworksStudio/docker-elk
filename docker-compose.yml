@@ -44,16 +44,12 @@ services:
         source: ./logstash/pipeline
         target: /usr/share/logstash/pipeline
         read_only: true
-      - type: volume
-        source: letsencrypt-certs
-        target: /usr/share/logstash/certs
     ports:
       - "8080:8080"
       - "9600:9600"
     environment:
       LS_JAVA_OPTS: "-Xmx1024m -Xms1024m"
       LOGSTASH_PASSWORD: ${LOGSTASH_PASSWORD:-changeme}
-      LOGSTASH_DOMAIN: ${LOGSTASH_DOMAIN:-th-elk.freshworks.club}
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-changeme}
       LOGSTASH_HTTP_USERNAME: ${LOGSTASH_HTTP_USERNAME:-changeme}
       LOGSTASH_HTTP_PASSWORD: ${LOGSTASH_HTTP_PASSWORD:-changeme}
