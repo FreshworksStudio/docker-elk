@@ -41,8 +41,16 @@ services:
         target: /usr/share/logstash/config/logstash.yml
         read_only: true
       - type: bind
+        source: ./logstash/config/logstash.yml
+        target: /usr/share/logstash/config/logstash.yml
+        read_only: true
+      - type: bind
         source: ./logstash/pipeline
         target: /usr/share/logstash/pipeline
+        read_only: true
+      - type: volume
+        source: letsencrypt-certs
+        target: /usr/share/logstash/certs
         read_only: true
     ports:
       - "8080:8080"
@@ -50,6 +58,7 @@ services:
     environment:
       LS_JAVA_OPTS: "-Xmx1024m -Xms1024m"
       LOGSTASH_PASSWORD: ${LOGSTASH_PASSWORD:-changeme}
+      LOGSTASH_DOMAIN: ${LOGSTASH_DOMAIN:-th-elk.freshworks.club}
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-changeme}
       LOGSTASH_HTTP_USERNAME: ${LOGSTASH_HTTP_USERNAME:-changeme}
       LOGSTASH_HTTP_PASSWORD: ${LOGSTASH_HTTP_PASSWORD:-changeme}
@@ -92,7 +101,12 @@ services:
         - ONLY_SUBDOMAINS=true
         - VALIDATION=http
     volumes:
-        - /usr/share/letsencrypt/config:/config
+        - type: volume
+            source: letsencrypt-config
+            target: /config
+        - type: volume
+            source: letsencrypt-certs
+            target: /etc/letsencrypt/live
     ports:
         - 443:443
         - 80:80
@@ -103,3 +117,5 @@ networks:
 
 volumes:
   elasticsearch:
+  letsencrypt-config:
+  letsencrypt-certs:
