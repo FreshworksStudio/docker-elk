@@ -91,7 +91,6 @@ services:
         - SUBDOMAINS=${SUBDOMAIN_LIST:-th-elk,}
         - ONLY_SUBDOMAINS=true
         - VALIDATION=http
-        - STAGING=true
     volumes:
         - type: volume
           source: letsencrypt-config
