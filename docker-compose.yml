@@ -7,7 +7,7 @@ services:
     build:
       context: elasticsearch/
       args:
-        ELK_VERSION: $ELK_VERSION
+        ELK_VERSION: ${ELK_VERSION:-7.5.0}
     volumes:
       - type: bind
         source: ./elasticsearch/config/elasticsearch.yml
@@ -34,7 +34,7 @@ services:
     build:
       context: logstash/
       args:
-        ELK_VERSION: $ELK_VERSION
+        ELK_VERSION: ${ELK_VERSION:-7.5.0}
     volumes:
       - type: bind
         source: ./logstash/config/logstash.yml
@@ -49,6 +49,7 @@ services:
       - "9600"
     environment:
       LS_JAVA_OPTS: "-Xmx1024m -Xms1024m"
+      LOGSTASH_USER: ${LOGSTASH_USER:-elastic}
       LOGSTASH_PASSWORD: ${LOGSTASH_PASSWORD:-changeme}
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD:-changeme}
       LOGSTASH_HTTP_USERNAME: ${LOGSTASH_HTTP_USERNAME:-changeme}
@@ -64,7 +65,7 @@ services:
     build:
       context: kibana/
       args:
-        ELK_VERSION: $ELK_VERSION
+        ELK_VERSION: ${ELK_VERSION:-7.5.0}
     volumes:
       - type: bind
         source: ./kibana/config/kibana.yml
@@ -73,6 +74,7 @@ services:
     expose:
       - "5601"
     environment:
+        KIBANA_USER: ${KIBANA_USER:-elastic}
         KIBANA_PASSWORD: ${KIBANA_PASSWORD:-changeme}
     networks:
       - elk
@@ -91,6 +93,7 @@ services:
         - SUBDOMAINS=${SUBDOMAIN_LIST:-elk.th,}
         - ONLY_SUBDOMAINS=true
         - VALIDATION=http
+        - STAGING=${STAGING:-true}
     volumes:
         - type: volume
           source: letsencrypt-config
